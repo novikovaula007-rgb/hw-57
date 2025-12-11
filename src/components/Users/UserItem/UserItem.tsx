@@ -3,7 +3,7 @@ import type {UserInterface} from "../../../types";
 
 const UserItem: React.FC<UserInterface> = ({name, email, role, isActive}) => {
     return (
-        <div className="container-sm">
+        <div className="container-sm mb-3">
             <div className="row">
                 <div className="col-md-12">
                     <div className="p-3 border rounded shadow-sm">

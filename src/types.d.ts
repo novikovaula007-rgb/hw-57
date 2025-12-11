@@ -6,3 +6,7 @@ export interface UserInterface {
     role: UserRole;
     isActive: boolean;
 }
+
+export interface UserMutation extends UserInterface{
+    id: string;
+}

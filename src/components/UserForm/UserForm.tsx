@@ -1,7 +1,12 @@
 import React, {useState} from 'react';
-import type {UserInterface} from "../../types";
+import type {UserInterface, UserMutation} from "../../types";
+import {toast} from "react-toastify";
 
-const UserForm = () => {
+interface Props {
+    addUser: (user: UserMutation) => void;
+}
+
+const UserForm: React.FC<Props> = ({addUser}) => {
     const [user, setUser] = useState<UserInterface>({
         name: '',
         email: '',
@@ -17,8 +22,22 @@ const UserForm = () => {
         setUser(prev => ({...prev, [e.target.name]: e.target.checked}))
     }
 
+    const onSubmit = (e: React.FormEvent<HTMLFormElement>)=> {
+        e.preventDefault()
+
+        if (!user.name.trim().length || !user.email.trim().length) {
+            toast.error('Please fill all fields')
+        } else {
+            addUser({
+                id: Math.random().toString(),
+                ...user})
+            setUser({name: '', email: '', isActive: false, role: 'user'})
+            toast.success('User added successfully')
+        }
+    }
+
     return (
-        <form>
+        <form onSubmit={onSubmit}>
             <h3>Add new user</h3>
             <div className="form-group mb-3">
                 <label htmlFor="userName">Name</label>
